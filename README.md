@@ -1,6 +1,7 @@
 # bmi_calculator
 
 A Simple Flutter application BMI Calculator
+The Design used by Cupertino (IOS Style) 
 
 ## Getting Started
 
