@@ -39,7 +39,7 @@ class _BmiPageState extends State<BmiPage> {
         .size
         .width;
     return ChangeNotifierProvider(
-      create: (context) => BmiPageProvider(),
+      create: (context) => BmiPageProvider(context),
       child: buildUI(),
     );
   }
