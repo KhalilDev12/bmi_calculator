@@ -41,12 +41,19 @@ class _HistoryPageState extends State<HistoryPage> {
       future: SharedPreferences.getInstance(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
+          final prefs = snapshot.data as SharedPreferences; // Get Data
+
+          final date = prefs.getString("bmi_date"); // Get date
+          DateTime parseDate = DateTime.parse(date!); // Parse date
+
+          final data = prefs.getStringList("bmi_data"); // Get Data
           return InfoCard(
             height: _deviceHeight * 0.25,
-            width: _deviceWidth * 0.75,
-            value: "Ssfq",
-            title: "Your Status is:",
-            child: Text("DSqsd"),
+            width: _deviceWidth * 0.8,
+            value: "BMI Score: ${data![0]}",
+            title: "Status: ${data[1]}",
+            child: Text(
+                "${parseDate.day} / ${parseDate.month} / ${parseDate.year}"),
           );
         } else {
           return const CupertinoActivityIndicator(
