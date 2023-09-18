@@ -30,14 +30,8 @@ class _BmiPageState extends State<BmiPage> {
 
   @override
   Widget build(BuildContext context) {
-    _deviceHeight = MediaQuery
-        .of(context)
-        .size
-        .height;
-    _deviceWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
+    _deviceHeight = MediaQuery.of(context).size.height;
+    _deviceWidth = MediaQuery.of(context).size.width;
     return ChangeNotifierProvider(
       create: (context) => BmiPageProvider(context),
       child: buildUI(),
@@ -48,31 +42,30 @@ class _BmiPageState extends State<BmiPage> {
     return Builder(builder: (context) {
       _bmiPageProvider = context.watch<BmiPageProvider>();
       return CupertinoPageScaffold(
-        child: Container(
-          height: _deviceHeight * 0.9,
-          width: _deviceWidth,
-          padding: EdgeInsets.all(_deviceHeight * 0.02),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const CupertinoNavigationBar(
-                middle: Text("BMI Calculator"),
-                backgroundColor: Colors.white24,
-              ),
-              Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ageContainer(),
-                    weightContainer(),
-                  ]),
-              heightContainer(),
-              genderContainer(),
-              calculateButton(),
-            ],
+        child: Center(
+          child: Container(
+            height: _deviceHeight * 0.8,
+            width: _deviceWidth,
+            padding: EdgeInsets.all(_deviceHeight * 0.02),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+
+                Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ageContainer(),
+                      weightContainer(),
+                    ]),
+                heightContainer(),
+                genderContainer(),
+                calculateButton(),
+              ],
+            ),
           ),
         ),
       );

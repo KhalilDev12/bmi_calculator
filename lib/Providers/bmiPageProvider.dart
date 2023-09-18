@@ -1,8 +1,7 @@
-import 'dart:ffi';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BmiPageProvider extends ChangeNotifier {
   int age = 25;
@@ -55,26 +54,42 @@ class BmiPageProvider extends ChangeNotifier {
     } else if (bmiValue >= 30) {
       status = "Obese";
     }
+    _showDialog(bmiValue, status);
+  }
+
+  void _showDialog(double bmiValue, String status) {
     showCupertinoDialog(
       context: context,
       builder: (builderContext) {
-        return _dialog(bmiValue, status, builderContext);
+        return CupertinoAlertDialog(
+          title: Text("Your Status is: $status"),
+          content: Text("Your BMI Score is: ${bmiValue.toStringAsFixed(2)}"),
+          actions: [
+            CupertinoDialogAction(
+              child: const Text("OK"),
+              onPressed: () {
+                _saveResults(bmiValue, status);
+                Navigator.pop(builderContext);
+              },
+            )
+          ],
+        );
       },
     );
   }
 
-  Widget _dialog(double bmiValue, String status, BuildContext builderContext) {
-    return CupertinoAlertDialog(
-      title: Text("Your Status is: $status"),
-      content: Text("Your BMI Score is: ${bmiValue.toStringAsFixed(2)}"),
-      actions: [
-        CupertinoDialogAction(
-          child: const Text("OK"),
-          onPressed: () {
-            Navigator.pop(builderContext);
-          },
-        )
+  void _saveResults(double bmiValue, String status) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(
+      "bmi_date",
+      DateTime.now().toString(),
+    ); // Save the calculation date
+    await prefs.setStringList(
+      "bmi_data",
+      <String>[
+        bmiValue.toStringAsFixed(2),
+        status,
       ],
-    );
+    ); // Save the calculation data
   }
 }

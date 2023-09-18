@@ -33,6 +33,10 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       resizeToAvoidBottomInset: false,
+      navigationBar: const CupertinoNavigationBar(
+        middle: Text("BMI Calculator"),
+        backgroundColor: Colors.white24,
+      ),
       child: CupertinoTabScaffold(
         tabBar: CupertinoTabBar(
           iconSize: 20,
