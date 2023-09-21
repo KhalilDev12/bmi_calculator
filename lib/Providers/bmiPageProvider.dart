@@ -1,5 +1,4 @@
-import 'dart:math';
-
+import 'package:bmi_calculator/utils/calculator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -42,8 +41,7 @@ class BmiPageProvider extends ChangeNotifier {
   }
 
   void calculateBMI() {
-    double heightInMeter = height / 100;
-    double bmiValue = weight / pow(heightInMeter, 2);
+    double bmiValue = bmiCalculation(height, weight);
     String status = "";
     if (bmiValue < 18.5) {
       status = "Underweight";
